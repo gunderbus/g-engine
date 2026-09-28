@@ -7,9 +7,24 @@ namespace ui{
     class Button
     {
     public:
-        Button(const std::string& text, sf::Vector2f position);
-        void draw(sf::RenderWindow& window);
-        bool isClicked(sf::Vector2f mousePosition);
+        Button(const std::string& text, sf::Vector2f position){
+            text.setString(text);
+            shape.setPosition(position);
+        }
+        void draw(sf::RenderWindow& window){
+            window.draw(shape);
+            window.draw(text);
+        }
+        bool isHovered(sf::Vector2f mousePosition){
+            return shape.getGlobalBounds().contains(mousePosition);
+        }
+
+        bool isClicked(sf::Vector2f mousePosition, bool isPressed){
+            if(isPressed && shape.getGlobalBounds().contains(mousePosition)){
+                return true;
+            }
+            return false;
+        }
     private:
         sf::Text text;
         sf::RectangleShape shape;
