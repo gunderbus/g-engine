@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
-
+#ifndef UI_HPP
+#define UI_HPP
+#pragma once
 
 namespace ui{
     class Button
@@ -110,3 +112,5 @@ namespace ui{
         std::vector<sf::Vector2f> order; // order will be placed by (type, index) with slider being 0 and measureBar being 1 and button being 2
     };
 };
+
+#endif // UI_HPP

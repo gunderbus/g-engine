@@ -27,6 +27,40 @@ namespace imgs{
             sprite.setPosition(position);
             window.draw(sprite);
         }
+
+        void drawImgScale(sf::RenderWindow& window, sf::Vector2f position, sf::Vector2f scale){
+            sprite.setPosition(position);
+            sprite.setScale(scale);
+            window.draw(sprite);
+        }
+
+        // fix
+        void drawImgQuaterion(sf::RenderWindow& window, sf::Vector2f position,
+                              sf::Vector2f scaleTopLeft, sf::Vector2f scaleBottomRight) {
+            const sf::Vector2u size = texture.getSize();
+            if (size.x == 0 || size.y == 0) {
+                return;
+            }
+
+            const float width = static_cast<float>(size.x);
+            const float height = static_cast<float>(size.y);
+
+            sf::VertexArray quad(sf::Quads, 4);
+            quad[0].position = position;
+            quad[1].position = position + sf::Vector2f(width * scaleTopLeft.x, 0.f);
+            quad[2].position = position + sf::Vector2f(
+                width * scaleBottomRight.x, height * scaleBottomRight.y);
+            quad[3].position = position + sf::Vector2f(0.f, height * scaleBottomRight.y);
+
+            quad[0].texCoords = sf::Vector2f(0.f, 0.f);
+            quad[1].texCoords = sf::Vector2f(width, 0.f);
+            quad[2].texCoords = sf::Vector2f(width, height);
+            quad[3].texCoords = sf::Vector2f(0.f, height);
+
+            sf::RenderStates states;
+            states.texture = &texture;
+            window.draw(quad, states);
+        }
     private:
         sf::Texture texture;
         sf::Sprite sprite;
