@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.16)
+project(Forge2D LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+add_executable(forge2d src/main.cpp)
+target_include_directories(forge2d PRIVATE namespaces)
+target_link_libraries(forge2d PRIVATE sfml-graphics sfml-window sfml-system)
